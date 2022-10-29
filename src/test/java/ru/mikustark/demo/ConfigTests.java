@@ -1,6 +1,5 @@
 package ru.mikustark.demo;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.mockserver.client.MockServerClient;
 import org.mockserver.model.HttpStatusCode;

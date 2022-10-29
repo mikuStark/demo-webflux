@@ -5,10 +5,8 @@ import lombok.experimental.UtilityClass;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /**
  * mkarbainova
@@ -17,7 +15,7 @@ import java.nio.file.Paths;
  */
 @UtilityClass
 public class Util {
-    public String readFile(String fileName) throws URISyntaxException, IOException {
+    public String readFile(String fileName) throws IOException {
         final var resource = new ClassPathResource(fileName);
         return Files.readString(Path.of(resource.getURI()));
     }

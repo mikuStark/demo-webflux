@@ -1,4 +1,4 @@
-package ru.mikustark.demo.model;
+package ru.mikustark.demo.model.integration;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

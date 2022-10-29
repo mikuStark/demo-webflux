@@ -1,7 +1,7 @@
 package ru.mikustark.demo.service;
 
 import reactor.core.publisher.Mono;
-import ru.mikustark.demo.model.Person;
+import ru.mikustark.demo.model.PersonDTO;
 
 /**
  * mkarbainova
@@ -10,5 +10,5 @@ import ru.mikustark.demo.model.Person;
  */
 public interface PersonService {
 
-    Mono<Person> getPersonInfoById(String id);
+    Mono<PersonDTO> getPersonInfoById(String id);
 }

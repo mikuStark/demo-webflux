@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
-import ru.mikustark.demo.model.Person;
+import ru.mikustark.demo.model.PersonDTO;
 import ru.mikustark.demo.service.PersonService;
 
 /**
@@ -20,7 +20,7 @@ public class PersonController {
     private final PersonService personService;
 
     @GetMapping(value = "/person/{id}")
-    public Mono<Person> personInfoById(
+    public Mono<PersonDTO> personInfoById(
             @PathVariable(name = "id") String id) {
         return personService.getPersonInfoById(id);
     }
