@@ -2,7 +2,7 @@ package ru.mikustark.demo;
 
 import org.junit.jupiter.api.Test;
 import org.mockserver.model.HttpStatusCode;
-import ru.mikustark.demo.model.Person;
+import ru.mikustark.demo.model.PersonDTO;
 
 import java.io.IOException;
 
@@ -24,14 +24,14 @@ public class PersonControllerTest extends ConfigTests {
                 "PersonOkResp.json",
                 HttpStatusCode.OK_200);
 
-        var expectedResult = Util.getObject("PersonOkResp.json", Person.class);
+        var expectedResult = Util.getObject("PersonOkExpected.json", PersonDTO.class);
 
-        Person result = client
+        PersonDTO result = client
                 .get()
                 .uri("/person/12345")
                 .exchange()
                 .expectStatus().isOk()
-                .expectBody(Person.class)
+                .expectBody(PersonDTO.class)
                 .returnResult()
                 .getResponseBody();
 

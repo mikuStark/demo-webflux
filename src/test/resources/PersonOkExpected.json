@@ -1,0 +1,10 @@
+{
+  "id": "12345",
+  "firstName": "firstName",
+  "lastName": "lastName",
+  "products": [
+    "productName098",
+    "productName088",
+    "productName087"
+  ]
+}
