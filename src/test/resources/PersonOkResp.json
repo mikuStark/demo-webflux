@@ -1,0 +1,8 @@
+{
+  "id": "12345",
+  "firstName": "firstName",
+  "lastName": "lastName",
+  "productId": [
+    "098", "088", "087"
+  ]
+}

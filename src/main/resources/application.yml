@@ -1,0 +1,9 @@
+server:
+  port: ${SERVER_PORT:8081}
+
+integration:
+  person:
+    url: ${PERSON_URL:http://localhost:8080}
+    path-id: ${PERSON_PATH_ID:/person/{id}}
+    connect-timeout: ${PERSON_CONNECTION_TIMEOUT:5000}
+    read-timeout: ${PERSON_READ_TIMEOUT:5000}
