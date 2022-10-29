@@ -51,7 +51,7 @@ public class PersonControllerTest extends ConfigTests {
                 .get()
                 .uri("/person/12345")
                 .exchange()
-                .expectStatus().equals(510);
+                .expectStatus().isEqualTo(510);
     }
 
 }
