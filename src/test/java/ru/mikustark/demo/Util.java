@@ -16,6 +16,7 @@ import java.nio.file.Path;
 @UtilityClass
 public class Util {
     public String readFile(String fileName) throws IOException {
+        if (fileName == null) return null;
         final var resource = new ClassPathResource(fileName);
         return Files.readString(Path.of(resource.getURI()));
     }
