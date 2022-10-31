@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.zalando.logbook.Logbook;
+import org.zalando.logbook.netty.LogbookClientHandler;
 import reactor.netty.http.client.HttpClient;
 import ru.mikustark.demo.configuration.properties.PersonWebClientProperties;
 
@@ -26,6 +28,8 @@ import java.util.concurrent.TimeUnit;
 })
 public class WebClientConfiguration {
 
+    Logbook logbook = Logbook.create();
+
     @Bean
     public WebClient integrationPersonWebClient(PersonWebClientProperties personWebClientProperties) {
         HttpClient httpClient = HttpClient
@@ -34,6 +38,7 @@ public class WebClientConfiguration {
                 .responseTimeout(Duration.ofMillis(5000))
                 .doOnConnected(connection -> {
                     connection.addHandlerLast(new ReadTimeoutHandler(personWebClientProperties.getReadTimeout(), TimeUnit.MILLISECONDS));
+                    connection.addHandlerLast(new LogbookClientHandler(logbook));
                 });
         return WebClient.builder()
                 .baseUrl(personWebClientProperties.getUrl())

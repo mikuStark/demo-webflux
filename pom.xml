@@ -20,6 +20,7 @@
 		<mockserver-spring-test-listener>5.14.0</mockserver-spring-test-listener>
 		<org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
 		<springdoc-openapi-webflux-ui>1.5.7</springdoc-openapi-webflux-ui>
+		<logbook>2.14.0</logbook>
 	</properties>
 
 	<dependencies>
@@ -28,21 +29,17 @@
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
 
+		<!-- logbook -->
 		<dependency>
-			<groupId>org.json</groupId>
-			<artifactId>json</artifactId>
-			<version>20220320</version>
+			<groupId>org.zalando</groupId>
+			<artifactId>logbook-spring-webflux</artifactId>
+			<version>${logbook}</version>
 		</dependency>
-
-		<!--		<dependency>-->
-<!--			<groupId>org.springframework.boot</groupId>-->
-<!--			<artifactId>spring-boot-starter-data-r2dbc</artifactId>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>io.r2dbc</groupId>-->
-<!--			<artifactId>r2dbc-h2</artifactId>-->
-<!--			<scope>runtime</scope>-->
-<!--		</dependency>-->
+		<dependency>
+			<groupId>org.zalando</groupId>
+			<artifactId>logbook-netty</artifactId>
+			<version>${logbook}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -56,6 +53,7 @@
 			<version>${org.mapstruct.version}</version>
 		</dependency>
 
+		<!-- swagger-->
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-webflux-ui</artifactId>
@@ -74,11 +72,6 @@
 			<version>${mockserver-spring-test-listener}</version>
 			<scope>test</scope>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>io.projectreactor</groupId>-->
-<!--			<artifactId>reactor-test</artifactId>-->
-<!--			<scope>test</scope>-->
-<!--		</dependency>-->
 	</dependencies>
 
 	<build>

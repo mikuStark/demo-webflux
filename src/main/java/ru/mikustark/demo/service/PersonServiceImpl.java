@@ -2,7 +2,6 @@ package ru.mikustark.demo.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.json.JSONObject;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -39,12 +38,7 @@ public class PersonServiceImpl implements PersonService{
                     if (response.rawStatusCode() != 200) return Mono.error(new IntegrationPersonCallException());
                     return response.bodyToMono(Person.class);
                 })
-                .flatMap(person -> {
-                    log.info("response {}", new JSONObject(person));
-                    PersonDTO result = personMapper.mapToPersonDTO(person);
-                    log.info("result {}", new JSONObject(result));
-                    return Mono.just(result);
-                })
+                .flatMap(person -> Mono.just(personMapper.mapToPersonDTO(person)))
                 .doOnSuccess(data -> log.info("Получена информация по клиенту {}", id))
                 .doOnError(data -> log.info("Ошибка при обращении в сервис Person"));
     }
