@@ -16,10 +16,14 @@ import ru.mikustark.demo.model.ServiceError;
 public class ExceptionController {
 
     @ExceptionHandler(IntegrationPersonCallException.class)
-    public ResponseEntity<ServiceError> handleException() {
+    public ResponseEntity<ServiceError> integrationPersonCallHandleException() {
         return ResponseEntity.status(HttpStatus.NOT_EXTENDED)
-                .body(ServiceError.builder()
-                        .message("Ошибка при обращении в сервис Person")
-                        .build());
+                .body(new ServiceError("Ошибка при обращении в сервис Person"));
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ServiceError> handleException() {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new ServiceError(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase()));
     }
 }

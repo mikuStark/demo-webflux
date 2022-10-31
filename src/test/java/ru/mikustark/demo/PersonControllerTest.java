@@ -44,7 +44,7 @@ public class PersonControllerTest extends ConfigTests {
         mockService(
                 "/person/12345",
                 "GET",
-                "PersonOkResp.json",
+                null,
                 HttpStatusCode.BAD_REQUEST_400);
 
         client

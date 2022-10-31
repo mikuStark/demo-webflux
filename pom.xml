@@ -19,6 +19,7 @@
 		<java.version>11</java.version>
 		<mockserver-spring-test-listener>5.14.0</mockserver-spring-test-listener>
 		<org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
+		<springdoc-openapi-webflux-ui>1.5.7</springdoc-openapi-webflux-ui>
 	</properties>
 
 	<dependencies>
@@ -26,7 +27,14 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
-<!--		<dependency>-->
+
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20220320</version>
+		</dependency>
+
+		<!--		<dependency>-->
 <!--			<groupId>org.springframework.boot</groupId>-->
 <!--			<artifactId>spring-boot-starter-data-r2dbc</artifactId>-->
 <!--		</dependency>-->
@@ -46,6 +54,12 @@
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
 			<version>${org.mapstruct.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-webflux-ui</artifactId>
+			<version>${springdoc-openapi-webflux-ui}</version>
 		</dependency>
 
 		<!-- test -->
