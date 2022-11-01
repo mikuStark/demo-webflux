@@ -1,6 +1,11 @@
 server:
   port: ${SERVER_PORT:8081}
 
+logging:
+  level:
+    root: ${LOG_LEVEL_ROOT:INFO}
+    org.zalando.logbook: TRACE
+
 integration:
   person:
     url: ${PERSON_URL:http://localhost:8080}

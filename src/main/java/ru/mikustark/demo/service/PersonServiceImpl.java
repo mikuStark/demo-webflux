@@ -2,7 +2,6 @@ package ru.mikustark.demo.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.json.JSONObject;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -11,6 +10,7 @@ import ru.mikustark.demo.configuration.properties.PersonWebClientProperties;
 import ru.mikustark.demo.exception.IntegrationPersonCallException;
 import ru.mikustark.demo.model.PersonDTO;
 import ru.mikustark.demo.model.integration.Person;
+import ru.mikustark.demo.service.dictionary.ProductDictionaryService;
 import ru.mikustark.demo.service.mapper.PersonMapper;
 
 /**
@@ -26,6 +26,7 @@ public class PersonServiceImpl implements PersonService{
     private final WebClient integrationPersonWebClient;
     private final PersonWebClientProperties personWebClientProperties;
     private final PersonMapper personMapper;
+    private final ProductDictionaryService productDictionaryService;
 
     @Override
     public Mono<PersonDTO> getPersonInfoById(String id) {
@@ -39,13 +40,13 @@ public class PersonServiceImpl implements PersonService{
                     if (response.rawStatusCode() != 200) return Mono.error(new IntegrationPersonCallException());
                     return response.bodyToMono(Person.class);
                 })
-                .flatMap(person -> {
-                    log.info("response {}", new JSONObject(person));
-                    PersonDTO result = personMapper.mapToPersonDTO(person);
-                    log.info("result {}", new JSONObject(result));
-                    return Mono.just(result);
-                })
+                .flatMap(this::mapToPersonDTO)
                 .doOnSuccess(data -> log.info("Получена информация по клиенту {}", id))
                 .doOnError(data -> log.info("Ошибка при обращении в сервис Person"));
+    }
+
+    private Mono<PersonDTO> mapToPersonDTO(Person person) {
+        return productDictionaryService.getProductDictionary()
+                .flatMap(result -> Mono.just(personMapper.mapPersonDTO(person, result)));
     }
 }
