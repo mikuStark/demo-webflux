@@ -10,6 +10,7 @@ import ru.mikustark.demo.configuration.properties.PersonWebClientProperties;
 import ru.mikustark.demo.exception.IntegrationPersonCallException;
 import ru.mikustark.demo.model.PersonDTO;
 import ru.mikustark.demo.model.integration.Person;
+import ru.mikustark.demo.service.dictionary.ProductDictionaryService;
 import ru.mikustark.demo.service.mapper.PersonMapper;
 
 /**
@@ -25,6 +26,7 @@ public class PersonServiceImpl implements PersonService{
     private final WebClient integrationPersonWebClient;
     private final PersonWebClientProperties personWebClientProperties;
     private final PersonMapper personMapper;
+    private final ProductDictionaryService productDictionaryService;
 
     @Override
     public Mono<PersonDTO> getPersonInfoById(String id) {
@@ -38,8 +40,13 @@ public class PersonServiceImpl implements PersonService{
                     if (response.rawStatusCode() != 200) return Mono.error(new IntegrationPersonCallException());
                     return response.bodyToMono(Person.class);
                 })
-                .flatMap(person -> Mono.just(personMapper.mapToPersonDTO(person)))
+                .flatMap(this::mapToPersonDTO)
                 .doOnSuccess(data -> log.info("Получена информация по клиенту {}", id))
                 .doOnError(data -> log.info("Ошибка при обращении в сервис Person"));
+    }
+
+    private Mono<PersonDTO> mapToPersonDTO(Person person) {
+        return productDictionaryService.getProductDictionary()
+                .flatMap(result -> Mono.just(personMapper.mapPersonDTO(person, result)));
     }
 }
