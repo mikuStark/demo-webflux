@@ -20,8 +20,4 @@ public class Product {
 
     private String value;
 
-    public Product(String productId, String value) {
-        this.productId = productId;
-        this.value = value;
-    }
 }
